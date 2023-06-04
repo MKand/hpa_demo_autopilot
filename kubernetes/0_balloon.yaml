@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: balloon-deploy
+  namespace: balloon
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: balloon
+  template:
+    metadata:
+      labels:
+        app: balloon
+    spec:
+      priorityClassName: balloon-priority
+      terminationGracePeriodSeconds: 0
+      nodeSelector:
+        foo: bar
+      tolerations:
+      - key: foo
+        operator: Equal
+        value: "bar"
+        effect: NoSchedule
+      containers:
+      - name: busybox
+        image: busybox:latest
+        command: ["sleep"]
+        args: ["infinity"]
+        resources:
+            requests:
+              cpu: 200m
+              memory: 250Mi
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: balloon-priority
+value: -10
+preemptionPolicy: Never
+globalDefault: false
+description: "Balloon pod priority."

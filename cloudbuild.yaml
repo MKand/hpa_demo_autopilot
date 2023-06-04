@@ -1,0 +1,8 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', 
+  '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome',
+  '--cache-from', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome',
+   './webpage' ]
+images:
+- 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome'

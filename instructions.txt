@@ -1,0 +1,7 @@
+export GATEWAY_IP_ADDRESS=`kubectl get gateway -o=jsonpath='{.items[?(@.metadata.name=="store-autoscale")].status.addresses[0].value}'`
+
+echo $GATEWAY_IP_ADDRESS
+
+curl http://$GATEWAY_IP_ADDRESS
+
+siege -t 20s -c 30 -q http://$GATEWAY_IP_ADDRESS
