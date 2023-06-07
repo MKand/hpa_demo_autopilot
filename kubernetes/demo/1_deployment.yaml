@@ -53,6 +53,8 @@ spec:
   parentRefs:
   - name: welcome-autoscale
     namespace: gateway
+  hostnames:
+  - "cloudday.manasakandula.tech"
   rules:
   - backendRefs:
     - name: welcome-autoscale
