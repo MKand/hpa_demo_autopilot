@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: welcome
-        image:  europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:latest
+        image:  europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:cymbal
         ports:
           - containerPort: 8080
 ---
