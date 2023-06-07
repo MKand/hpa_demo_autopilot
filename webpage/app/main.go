@@ -14,6 +14,7 @@ func main() {
 func renderPage() {
 	tmpl := template.Must(template.ParseFiles("index.html"))
 	pagePath := "/"
+	http.Handle("/images/", http.StripPrefix("/images", http.FileServer(http.Dir("./images"))))
 	http.HandleFunc(pagePath, func(w http.ResponseWriter, r *http.Request) {
 		if err := tmpl.Execute(w, nil); err != nil {
 			log.Fatalln("Failed template execution %v", err)

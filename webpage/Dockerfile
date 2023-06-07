@@ -16,6 +16,6 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/server /server
 COPY ./index.html index.html
-COPY ./cymbal_super_store.jpg
+COPY ./images ./images
 # Run the web service on container startup.
 CMD ["/server"]
