@@ -1,3 +1,8 @@
+export GOOGLE_APPLICATION_CREDENTIALS=~/demos/keys/k8s-demo-cloudbuild-key.json
+
+REPO: https://source.cloud.google.com/k8s-demos-386513/github_mkand_hpa_demo_autopilot/+/main:
+
+
 export GATEWAY_IP_ADDRESS=`kubectl get gateway -o=jsonpath='{.items[?(@.metadata.name=="store-autoscale")].status.addresses[0].value}'`
 
 echo $GATEWAY_IP_ADDRESS

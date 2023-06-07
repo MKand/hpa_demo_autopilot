@@ -1,8 +1,23 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', 
-  '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome',
-  '--cache-from', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome',
-   './webpage' ]
-images:
-- 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome'
+  args: [ 
+          'build', 
+          '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome',
+          '--cache-from', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome',
+          './webpage' 
+        ]
+- name: "gcr.io/cloud-builders/docker"
+  args: [
+        'push', 
+        'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:latest'
+        ]
+
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args: [
+        'run',
+        '--filename=kubernetes/demo/1_deployment.yaml',
+        '--location=europe-west4',
+        '--cluster=autopilot-cluster'
+       ]
+options:
+  logging: CLOUD_LOGGING_ONLY
