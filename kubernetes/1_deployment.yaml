@@ -6,6 +6,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: store-autoscale
+  namespace: store
 spec:
   replicas: 1
   selector:
@@ -34,7 +35,7 @@ kind: Service
 metadata:
   name: store-autoscale
   annotations:
-    networking.gke.io/max-rate-per-endpoint: "10"
+    networking.gke.io/max-rate-per-endpoint: "5"
 spec:
   ports:
   - port: 8080
