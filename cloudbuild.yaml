@@ -11,3 +11,5 @@ steps:
         ]
 images:
 - 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome'
+options:
+  logging: CLOUD_LOGGING_ONLY
