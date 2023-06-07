@@ -1,21 +1,21 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: store-autoscale
-  namespace: store
+  name: welcome-autoscale
+  namespace: welcome
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: store-autoscale
+    name: welcome-autoscale
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 20
   metrics:
   - type: Object
     object:
       describedObject:
         kind: Service
-        name: store-autoscale
+        name: welcome-autoscale
       metric:
         name: "autoscaling.googleapis.com|gclb-capacity-utilization"
       target:
