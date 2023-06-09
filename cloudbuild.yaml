@@ -24,6 +24,13 @@ steps:
 - name: "gcr.io/cloud-builders/gke-deploy"
   args: [
         'run',
+        '--filename=kubernetes/misenplace/4_deployment_visualizer.yaml',
+        '--location=europe-west4',
+        '--cluster=autopilot-cluster'
+       ]
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args: [
+        'run',
         '--filename=kubernetes/demo/1_deployment.yaml',
         '--location=europe-west4',
         '--cluster=autopilot-cluster'
