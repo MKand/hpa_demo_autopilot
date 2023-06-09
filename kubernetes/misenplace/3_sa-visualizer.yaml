@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: welcome
+  name: visualize
   labels:
     shared-gateway-access: "true"
 
@@ -9,5 +9,5 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: welcome
-  namespace: welcome
+  name: visualize
+  namespace: visualize

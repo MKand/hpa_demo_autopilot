@@ -1,5 +1,25 @@
 export GOOGLE_APPLICATION_CREDENTIALS=~/demos/keys/k8s-demo-cloudbuild-key.json
 
+
+Service account Workload id:
+gcloud iam service-accounts add-iam-policy-binding cymbal-topic-publisher@k8s-demos-386513.iam.gserviceaccount.com \
+    --role roles/iam.workloadIdentityUser \
+    --member "serviceAccount:k8s-demos-386513.svc.id.goog[welcome/welcome]"
+
+kubectl annotate serviceaccount welcome \
+    --namespace welcome \
+    iam.gke.io/gcp-service-account=cymbal-topic-publisher@k8s-demos-386513.iam.gserviceaccount.com
+
+gcloud iam service-accounts add-iam-policy-binding cymbal-topic-subscriber@k8s-demos-386513.iam.gserviceaccount.com \
+--role roles/iam.workloadIdentityUser \
+--member "serviceAccount:k8s-demos-386513.svc.id.goog[visualize/visualize]"
+
+kubectl annotate serviceaccount welcome \
+    --namespace visualize \
+    iam.gke.io/gcp-service-account=cymbal-topic-subscriber@k8s-demos-386513.iam.gserviceaccount.com
+
+----
+
 REPO: https://source.cloud.google.com/k8s-demos-386513/github_mkand_hpa_demo_autopilot/+/main:
 
 CloudBuild: https://console.cloud.google.com/cloud-build/dashboard;region=europe-west4?project=k8s-demos-386513
