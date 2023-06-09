@@ -1,0 +1,66 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: visualizer
+  namespace: visualize
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: visualizer
+  template:
+    metadata:
+      labels:
+        app: visualizer
+    spec:
+      containers:
+      - name: visualizer
+        image:  europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/visualizer:sayhi
+        ports:
+          - containerPort: 8080
+        env:
+        - name: PROJECT_ID
+          value: "k8s-demos-386513"
+        - name: TOPIC_NAME
+          value: "cymbal-topic"
+      serviceAccountName: visualize
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: visualizer
+  namespace: visualize
+  annotations:
+    networking.gke.io/max-rate-per-endpoint: "5"
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: http 
+  selector:
+    app: visualizer
+  type: ClusterIP
+---
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: visualizer
+  namespace: visualize
+  labels:
+    gateway: visualizer
+spec:
+  parentRefs:
+  - name: visualizer
+    namespace: gateway
+  hostnames:
+  - "cloudday.manasakandula.tech"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /view
+    backendRefs:
+    - name: visualizer
+      port: 8080

@@ -10,7 +10,17 @@ steps:
         'push', 
         'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:sayhi'
         ]
-
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 
+          'build', 
+          '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/visualizer:sayhi',
+          './visualizer' 
+        ]
+- name: "gcr.io/cloud-builders/docker"
+  args: [
+        'push', 
+        'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/visualizer:sayhi'
+        ]
 - name: "gcr.io/cloud-builders/gke-deploy"
   args: [
         'run',

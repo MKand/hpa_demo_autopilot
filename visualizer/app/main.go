@@ -12,6 +12,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/goombaio/namegenerator"
+
 	"cloud.google.com/go/pubsub"
 )
 
@@ -167,4 +169,12 @@ func (h *HandlerData) handleMessage(ctx context.Context, msg *pubsub.Message) {
 		(*(*h).killed)[instanceMessage.Name] = time.Now()
 	}
 	h.mutex.Unlock()
+}
+
+func randName() string {
+	seed := time.Now().UTC().UnixNano()
+	nameGenerator := namegenerator.NewNameGenerator(seed)
+
+	name := nameGenerator.Generate()
+	return name
 }
