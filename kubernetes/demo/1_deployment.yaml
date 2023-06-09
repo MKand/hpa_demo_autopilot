@@ -33,6 +33,7 @@ spec:
           value: "cymbal-topic-local"
         - name: MESSAGE_INTERVAL
           value: "2"
+      serviceAccountName: welcome
 
 ---
 apiVersion: v1
