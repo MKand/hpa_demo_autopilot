@@ -4,6 +4,7 @@ metadata:
   name: welcome
   labels:
     shared-gateway-access: "true"
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -21,10 +22,18 @@ spec:
         app: welcome-autoscale
     spec:
       containers:
-      - name: welcome
-        image:  europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:pcfry
+      - name: cymbal
+        image:  europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:sayhi
         ports:
           - containerPort: 8080
+        env:
+        - name: PROJECT_ID
+          value: "k8s-demos-386513"
+        - name: TOPIC_NAME
+          value: "cymbal-topic-local"
+        - name: MESSAGE_INTERVAL
+          value: "2"
+
 ---
 apiVersion: v1
 kind: Service
