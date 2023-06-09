@@ -81,31 +81,22 @@
         <div class="unknown card container">
             <p class="instance_name">{{$value.Name}} </p>
             <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
-            <p class="instance_text">HealthChecks Handled: {{$value.HealthCheckCount}}</p>
-            <p class="instance_text">Rate of Work</p>
-            <meter id="WorkDone" value={{$value.WorkRate}} min="0" max="1200">/meter><br>
         </div>
             {{else if (eq $value.InstanceStatus 1)}}
          <div class="idle card container">
             <p class="instance_name">{{$value.Name}} </p>
             <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
-            <p class="instance_text">HealthChecks Handled: {{$value.HealthCheckCount}}</p>
-            <p class="instance_text">Rate of Work</p>
-            <meter id="WorkDone" value={{$value.WorkRate}} min="0" max="1200">/meter><br>
         </div>
         {{else if (eq $value.InstanceStatus 2)}}
         <div class="active card container">
          <p class="instance_name">{{$value.Name}} </p>
-            <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
-            <p class="instance_text">HealthChecks Handled: {{$value.HealthCheckCount}}</p>
-            <p class="instance_text">Rate of Work</p>
-            <meter id="WorkDone" value={{$value.WorkRate}} min="0" max="1200">/meter><br>
+         <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
+    
         </div>
         {{else if  (eq $value.InstanceStatus 3)}}
         <div class="deleted card container">
             <p class="instance_name">{{$value.Name}} </p>
             <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
-            <p class="instance_text">HealthChecks Handled: {{$value.HealthCheckCount}}</p>
         </div>
         {{end}}
         {{end}}
