@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: visualizer
-        image:  europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/visualizer:sayhi
+        image:  europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/visualizer:latest
         ports:
           - containerPort: 8080
         env:
