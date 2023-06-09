@@ -14,7 +14,7 @@ gcloud iam service-accounts add-iam-policy-binding cymbal-topic-subscriber@k8s-d
 --role roles/iam.workloadIdentityUser \
 --member "serviceAccount:k8s-demos-386513.svc.id.goog[visualize/visualize]"
 
-kubectl annotate serviceaccount welcome \
+kubectl annotate serviceaccount visualize \
     --namespace visualize \
     iam.gke.io/gcp-service-account=cymbal-topic-subscriber@k8s-demos-386513.iam.gserviceaccount.com
 

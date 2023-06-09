@@ -59,6 +59,10 @@ spec:
   hostnames:
   - "cloudday.manasakandula.tech"
   rules:
-  - backendRefs:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: "/"
+    backendRefs:
     - name: welcome-autoscale
       port: 8080

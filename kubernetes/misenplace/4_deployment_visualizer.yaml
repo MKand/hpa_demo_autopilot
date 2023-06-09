@@ -32,8 +32,6 @@ kind: Service
 metadata:
   name: visualizer
   namespace: visualize
-  annotations:
-    networking.gke.io/max-rate-per-endpoint: "5"
 spec:
   ports:
   - port: 8080
@@ -49,10 +47,10 @@ metadata:
   name: visualizer
   namespace: visualize
   labels:
-    gateway: visualizer
+    gateway: welcome-autoscale
 spec:
   parentRefs:
-  - name: visualizer
+  - name: welcome-autoscale
     namespace: gateway
   hostnames:
   - "cloudday.manasakandula.tech"
@@ -60,7 +58,7 @@ spec:
   - matches:
     - path:
         type: PathPrefix
-        value: /view
+        value: "/view"
     backendRefs:
     - name: visualizer
       port: 8080
