@@ -5,13 +5,15 @@ steps:
           '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:latest',
           './webpage' 
         ]
-  id: "Build_Container"
+  id: Build_Container
 - name: "gcr.io/cloud-builders/docker"
   args: [
         'push', 
         'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:sayhi'
         ]
-  id: "Push_Container"
+  id: Push_Container
+  waitFor:
+  - Build_Container
 - name: "gcr.io/cloud-builders/gke-deploy"
   args: [
         'run',
@@ -19,6 +21,8 @@ steps:
         '--location=europe-west4',
         '--cluster=autopilot-cluster'
        ]
-  id: "Deploy_to_GKE"
+  id: Deploy_to_GKE
+  waitFor:
+  - Push_Container
 options:
   logging: CLOUD_LOGGING_ONLY
