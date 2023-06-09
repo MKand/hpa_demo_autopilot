@@ -2,18 +2,18 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 
           'build', 
-          '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:sayhi',
-          './webpage' 
+          '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/visualizer:sayhi',
+          './visualizer' 
         ]
 - name: "gcr.io/cloud-builders/docker"
   args: [
         'push', 
-        'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:sayhi'
+        'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/visualizer:sayhi'
         ]
 - name: "gcr.io/cloud-builders/gke-deploy"
   args: [
         'run',
-        '--filename=kubernetes/demo/1_deployment.yaml',
+        '--filename=kubernetes/misenplace/4_deployment_visualizer.yaml',
         '--location=europe-west4',
         '--cluster=autopilot-cluster'
        ]
