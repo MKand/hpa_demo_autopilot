@@ -2,13 +2,13 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 
           'build', 
-          '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:cymbal',
+          '-t', 'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:pcfry',
           './webpage' 
         ]
 - name: "gcr.io/cloud-builders/docker"
   args: [
         'push', 
-        'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:cymbal'
+        'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:pcfry'
         ]
 
 - name: "gcr.io/cloud-builders/gke-deploy"
