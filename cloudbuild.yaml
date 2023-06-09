@@ -12,8 +12,6 @@ steps:
         'europe-west4-docker.pkg.dev/k8s-demos-386513/cloudday/welcome:sayhi'
         ]
   id: Push_Container
-  waitFor:
-  - Build_Container
 - name: "gcr.io/cloud-builders/gke-deploy"
   args: [
         'run',
