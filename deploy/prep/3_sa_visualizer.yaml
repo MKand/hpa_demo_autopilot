@@ -9,5 +9,7 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  annotations:
+    iam.gke.io/gcp-service-account: cymbal-topic-subscriber@k8s-demos-386513.iam.gserviceaccount.com
   name: visualize
   namespace: visualize

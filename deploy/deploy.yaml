@@ -14,32 +14,47 @@
 
 timeout: 14400s # 2hr
 substitutions:
-  # _PROJECT_ID: ${PROJECT_ID}
+  _PROJECT_ID: ${PROJECT_ID}
   _LOCATION: "europe-west4"
+  _GKE_CLUSTER: "autopilot-cluster"
   # _TAG: latest
   _DEPLOY_GATEWAY: "true"
   # _DEPLOY_BALLOON: "false"
-  # _DEPLOY_VIS: "true"
-  # _DEPLOY_WECOME: "true"
-  _GKE_CLUSTER: "autopilot-cluster"
+  # _DEPLOY_VIS: "false"
+  # _DEPLOY_WECLOME: "false"
+
 tags:
   - apply-k8s-yaml
 steps:
   - name: "gcr.io/cloud-builders/gcloud"
-    id: "01-deploy-gateway"
+    id: "01-deploy-setup"
     entrypoint: bash
     args:
       - -c
       - |
         [[ "${_DEPLOY_GATEWAY}" == "false" ]] && exit 0
-        exec gcloud builds submit --config deploy/deploy_gateway.yaml --substitutions=_LOCATION=${_LOCATION},_GKE_CLUSTER=autopilot-cluster
-  - name: "gcr.io/cloud-builders/gcloud"
-    id: "02-deploy-balloon"
-    entrypoint: bash
-    args:
-      - -c
-      - |
-        [[ "${_DEPLOY_BALLOON}" == "false" ]] && exit 0
-        exec gcloud builds submit --config deploy/deploy_balloon.yaml --substitutions=_LOCATION=${_LOCATION},_GKE_CLUSTER=autopilot-cluster
-
-  
+        exec gcloud builds submit --config deploy/deploy_setup.yaml --substitutions=_PROJECT_ID=${PROJECT_ID},_LOCATION=${_LOCATION},_GKE_CLUSTER=autopilot-cluster
+  # - name: "gcr.io/cloud-builders/gcloud"
+  #   id: "02-deploy-balloon"
+  #   entrypoint: bash
+  #   args:
+  #     - -c
+  #     - |
+  #       [[ "${_DEPLOY_BALLOON}" == "false" ]] && exit 0
+  #       exec gcloud builds submit --config deploy/deploy_balloon.yaml --substitutions=_LOCATION=${_LOCATION},_GKE_CLUSTER=autopilot-cluster
+  # - name: "gcr.io/cloud-builders/gcloud"
+  #   id: "03-deploy-visualizer"
+  #   entrypoint: bash
+  #   args:
+  #     - -c
+  #     - |
+  #       [[ "${_DEPLOY_VIS}" == "false" ]] && exit 0
+  #       exec gcloud builds submit --config deploy/deploy_visualizer.yaml --substitutions=_PROJECT_ID=${PROJECT_ID},_LOCATION=${_LOCATION},_GKE_CLUSTER=autopilot-cluster
+  # - name: "gcr.io/cloud-builders/gcloud"
+  #   id: "04-deploy-welcome"
+  #   entrypoint: bash
+  #   args:
+  #     - -c
+  #     - |
+  #       [[ "${_DEPLOY_WECLOME}" == "false" ]] && exit 0
+  #       exec gcloud builds submit --config deploy/deploy_welcome.yaml --substitutions=_PROJECT_ID=${PROJECT_ID},_LOCATION=${_LOCATION},_GKE_CLUSTER=autopilot-cluster

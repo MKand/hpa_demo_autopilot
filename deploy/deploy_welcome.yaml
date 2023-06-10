@@ -14,32 +14,17 @@
 
 timeout: 14400s # 2hr
 substitutions:
+  _PROJECT_ID: ${PROJECT_ID}
   _LOCATION: "europe-west4"
   _GKE_CLUSTER: "autopilot-cluster"
 tags:
-  - "01-apply-gateway-sas-k8s-yaml"
+  - "03-apply-welcome-k8s-yaml"
 steps:
   - name: 'gcr.io/cloud-builders/gke-deploy'
-    id: 'Apply gateway'
+    id: '01 Apply gateway'
     args:
     - 'apply'
-    - '--filename=deploy/prep/1_gateway.yaml'
-    - '--namespace=gateway'
-    - '--cluster=$_GKE_CLUSTER'
-    - '--location=$_LOCATION'
-
-  - name: 'gcr.io/cloud-builders/gke-deploy'
-    id: 'Apply sa and ns for visualizer'
-    args:
-    - 'apply'
-    - '--filename=deploy/prep/3_sa_visualizer.yaml'
-    - '--cluster=$_GKE_CLUSTER'
-    - '--location=$_LOCATION'
-
-  - name: 'gcr.io/cloud-builders/gke-deploy'
-    id: 'Apply sa and ns for welcome'
-    args:
-    - 'apply'
-    - '--filename=deploy/prep/5_sa_welcome.yaml'
+    - '--filename=deploy/demo/1_demployment.yaml'
+    - '--namespace=welcome'
     - '--cluster=$_GKE_CLUSTER'
     - '--location=$_LOCATION'
