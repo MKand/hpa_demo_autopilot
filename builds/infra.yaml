@@ -1,0 +1,57 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+timeout: 14400s # 2hr
+substitutions:
+  _PROJECT_ID: ${PROJECT_ID}
+  _LOCATION: "europe-west4"
+  _CREATE_GCS: "true"
+  _ENABLE_API: "true"
+  _CREATE_PUBSUB: "true"
+
+tags:
+  - infra-main-terraform
+steps:
+  # 0 Build GCS storage bucket for TF state, project files, vars.sh etc
+  # This step creates a GCS storage bucket in the project with the name of project ID.
+  # This step creates the following resources:
+  #  1. GCS storage bucket (with versioning enabled) named PROJECT_ID.
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "00-infra-create-gcs"
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        [[ "${_CREATE_GCS}" == "false" ]] && exit 0
+        exec gcloud builds submit --config builds/infra_create_gcs.yaml --substitutions=_PROJECT_ID=${_PROJECT_ID},_LOCATION=${_LOCATION}
+  # 1 Enable APIs
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "01-infra-enable-apis"
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        [[ "${_ENABLE_API}" == "false" ]] && exit 0
+        exec gcloud builds submit --config builds/infra_enable_apis.yaml --substitutions=_PROJECT_ID=${_PROJECT_ID}
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "02-infra-create-pubsub"
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        [[ "${_CREATE_PUBSUB}" == "false" ]] && exit 0
+        exec gcloud builds submit --config builds/infra_create_pubsub.yaml --substitutions=_PROJECT_ID=${_PROJECT_ID},_LOCATION=${_LOCATION}
+  # TODO: Create GKE and VPCs
+  
+

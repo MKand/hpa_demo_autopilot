@@ -1,23 +1,3 @@
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "4.67.0"
-    }
-  }
-   backend "gcs" {
-   bucket  = "hpa-demo"
-   prefix  = "terraform/state"
- }
-}
-
-provider "google" {
-  project     = var.project_id
-  region      = var.region
-  zone        = var.zone
-}
-
-
 resource "google_service_account" "sa-name-publisher" {
   account_id = "${var.topic_name}-publisher"
 }
