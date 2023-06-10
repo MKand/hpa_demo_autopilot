@@ -4,6 +4,19 @@ metadata:
   name: welcome-autoscale
   namespace: welcome
 spec:
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 15
+      policies:
+      - type: Percent
+        value: 80
+        periodSeconds: 15
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 15
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
@@ -19,5 +32,5 @@ spec:
       metric:
         name: "autoscaling.googleapis.com|gclb-capacity-utilization"
       target:
-        averageValue: 70
+        averageValue: 80
         type: AverageValue

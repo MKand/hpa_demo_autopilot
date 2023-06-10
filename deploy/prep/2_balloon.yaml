@@ -11,7 +11,7 @@ metadata:
   name: balloon-deploy
   namespace: balloon
 spec:
-  replicas: 20
+  replicas: 10
   selector:
     matchLabels:
       app: balloon

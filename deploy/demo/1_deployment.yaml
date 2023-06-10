@@ -25,7 +25,7 @@ spec:
         - name: TOPIC_NAME
           value: "cymbal-topic"
         - name: MESSAGE_INTERVAL
-          value: "2"
+          value: "1"
       serviceAccountName: welcome
 
 ---
@@ -35,7 +35,7 @@ metadata:
   name: welcome-autoscale
   namespace: welcome
   annotations:
-    networking.gke.io/max-rate-per-endpoint: "5"
+    networking.gke.io/max-rate-per-endpoint: "20"
 spec:
   ports:
   - port: 8080

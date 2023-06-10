@@ -26,6 +26,6 @@ gcloud builds submit --config=builds/infra.yaml --substitutions=_PROJECT_ID=${PR
 echo -e "\e[95mYou can view the Cloudbuild status through https://console.cloud.google.com/cloud-build\e[0m"
 
 echo -e "\e[95mStarting Cloudbuild to create images...\e[0m"
-gcloud builds submit --config=artifacts/artifacts.yaml --substitutions=_PROJECT_ID=${PROJECT_ID},_LOCATION="europe-west4",_TAG="builder"
+gcloud builds submit --config=artifacts/artifacts.yaml --substitutions=_PROJECT_ID=${PROJECT_ID},_LOCATION="europe-west4",_TAG="v1"
 echo -e "\e[95mYou can view the Cloudbuild status through https://console.cloud.google.com/cloud-build\e[0m"
 
