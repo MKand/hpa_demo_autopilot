@@ -33,3 +33,5 @@ echo $GATEWAY_IP_ADDRESS
 curl http://$GATEWAY_IP_ADDRESS
 
 siege -t 100s -c 50 -q https://cloudday.manasakandula.tech
+
+gcloud builds submit --config artifacts/artifact_build_visualizer.yaml --substitutions=_PROJECT_ID=k8s-demos-386513,_LOCATION=europe-west4,_TAG=view
