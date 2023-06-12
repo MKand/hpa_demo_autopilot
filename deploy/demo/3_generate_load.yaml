@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: loadgen
+  namespace: loadgen
+spec:
+  parallelism: 10
+  template:
+    spec:
+      containers:
+      - name: httperf-bench
+        image: cyrilbkr/httperf
+        args:
+        - /bin/sh
+        - -c
+        - httperf --server cloudday.manasakandula.tech --port 443  --num-conns 1000000 --ra 60  --timeout 1
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "1"
+          limits:
+            memory: "2Gi"
+            cpu: "2"
+        securityContext:
+          allowPrivilegeEscalation: false
+      restartPolicy: Never

@@ -9,7 +9,7 @@ spec:
       stabilizationWindowSeconds: 15
       policies:
       - type: Percent
-        value: 80
+        value: 60
         periodSeconds: 15
     scaleUp:
       stabilizationWindowSeconds: 0
@@ -32,5 +32,5 @@ spec:
       metric:
         name: "autoscaling.googleapis.com|gclb-capacity-utilization"
       target:
-        averageValue: 80
+        averageValue: 60
         type: AverageValue

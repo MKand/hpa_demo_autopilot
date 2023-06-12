@@ -32,4 +32,4 @@ echo $GATEWAY_IP_ADDRESS
 
 curl http://$GATEWAY_IP_ADDRESS
 
-siege -t 20s -c 30 -q http://$GATEWAY_IP_ADDRESS
+siege -t 100s -c 50 -q https://cloudday.manasakandula.tech
